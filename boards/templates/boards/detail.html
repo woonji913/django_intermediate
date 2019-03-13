@@ -1,0 +1,15 @@
+{% extends 'boards/base.html' %}
+{% block body %}
+    <h1>Detail</h1>
+    <h4>{{ board.id }}번째 글</h4>
+    <hr>
+    <h2>{{ board.title }}</h2>
+    <p>{{ board.content }}</p>
+    <br>
+    <p>작성시간: {{ board.created_at }}</p>
+    <p>수정시간: {{ board.updated_at }}</p>
+    
+    <a href="{% url 'boards:edit' board.pk %}">[수정]</a>
+    <a href="{% url 'boards:delete' board.pk %}" onclick='return confirm("R U SURE?")'>[삭제]</a>
+    <a href="{% url 'boards:index' %}">[뒤로가기]</a>
+{% endblock %}
