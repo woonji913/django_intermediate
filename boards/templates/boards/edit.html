@@ -1,7 +1,8 @@
 {% extends 'boards/base.html' %}
 {% block body %}
     <h1>수정하기</h1>
-    <form action="{% url 'boards:update' board.pk %}" method="POST">
+    <!--<form action="{# url 'boards:update' board.pk #}" method="POST">-->
+    <form method="POST">
         {% csrf_token %}
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value="{{ board.title }}"/> <br>
