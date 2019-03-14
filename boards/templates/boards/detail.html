@@ -16,4 +16,26 @@
         <input type="submit" value="삭제"/>
     </form>
     <a href="{% url 'boards:index' %}">[뒤로가기]</a>
+    
+    <hr>
+    
+    {% for comment in comments %}
+        <li>
+            {{ comment.content }}
+            <form action="{% url 'boards:comments_delete' board.pk comment.pk %}" method="post" style='display:inline' onsubmit="return confirm('R U SURE?');">
+                {% csrf_token %}
+                <input type='submit' value='삭제'/>
+            </form>
+        </li>
+    {% empty %}
+        <p><b>댓글이 없어요...</b></p>
+    {% endfor %}
+    
+    <hr>
+    <p>댓글 작성 / {{ comments | length }}</p>
+    <form action="{% url 'boards:comments_create' board.pk %}" method='POST'>
+        {% csrf_token %}
+        comment : <input type="text" name="content"/>
+        <input type="submit" name="submit"/>
+    </form>
 {% endblock %}
