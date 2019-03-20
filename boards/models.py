@@ -1,9 +1,20 @@
 from django.db import models
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
+def board_image_path(instance, filename):
+    return f'boards/{instance.pk}/images/{filename}'
+    
 # Create your models here.
 class Board(models.Model):
     title = models.CharField(max_length=10)
     content = models.TextField()
+    image =ProcessedImageField(
+        upload_to=board_image_path,            #저장위치
+        processors=[ResizeToFill(200, 300)],  # 처리할 작업목록
+        format='JPEG',                        # 저장 포멧
+        options={'quality': 90},              # 옵션
+        )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -11,7 +22,7 @@ class Board(models.Model):
         return f"{self.id}: {self.title}"
         
 class Comment(models.Model):
-# 1. od_delete 
+# 1. on_delete 
 #  참조하는 부모객체가 사라졌을 때, 부모에 딸려있는 자식 객체들을 어떻게 처리할지 정의한다.
 #  - 속성값
 #   1. CASCADE : 부모객체가 삭제됏을때 이를 참조하는 객체도 삭제한다.

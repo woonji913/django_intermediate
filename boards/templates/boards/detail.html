@@ -1,10 +1,16 @@
 {% extends 'boards/base.html' %}
+{% load static %}
 {% block body %}
     <h1>Detail</h1>
     <h4>{{ board.id }}번째 글</h4>
     <hr>
     <h2>{{ board.title }}</h2>
     <p>{{ board.content }}</p>
+    {% if board.image %}
+        <img src="{{ board.image.url }}" alt="{{ board.image }}">
+    {% else %}
+        <img src="{% static 'boards/noimage.gif' %}" alt="noimage">
+    {% endif %}
     <br>
     <p>작성시간: {{ board.created_at }}</p>
     <p>수정시간: {{ board.updated_at }}</p>

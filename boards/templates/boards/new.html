@@ -3,12 +3,14 @@
     <h1>새 글 작성하기</h1>
     <!--<form action="{# url 'boards:new' #}" method="POST">-->
     <!--액션이 필요없어짐(현재 위치로 가기 때문)-->
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="title">Title</label>
         <input type="text" name="title" id="title"/> <br>
         <label for="content">Content</label>
         <input type="text" name="content" id="content"/> <br>
+        <label for="image">Image</label>
+        <input type="file" name="image" accept="image/*" id="image"/> <br>
         <input type="submit" value="Submit"/>
     </form>
     <a href="{% url 'boards:index' %}">Back</a>

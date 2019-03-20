@@ -32,8 +32,9 @@ def new(request):
         # post 방식일 때 create
         title = request.POST.get('title')
         content = request.POST.get('content')
+        image = request.FILES.get('image')
         
-        board = Board(title=title, content=content)
+        board = Board(title=title, content=content, image=image)
         board.save()
         return redirect('boards:detail', board.pk)
     else:
